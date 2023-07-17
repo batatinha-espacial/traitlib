@@ -98,7 +98,7 @@ For objcets that can be merged with another instance.
 
 The merging function.
 
-## `Stream`, our most complex type at the time of writing
+## `Stream`, our most complex trait at the time of writing
 
 For an stream, which implements `Read` and `Write`.
 
