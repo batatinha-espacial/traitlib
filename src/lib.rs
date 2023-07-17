@@ -23,8 +23,8 @@ use std::io::Result as IoResult;
 pub trait ByteSerialize {
     fn byte_serialize(&self) -> Vec<u8>;
 }
-pub trait Serialize {
-    fn serialize(&self) -> String;
+pub trait StrSerialize {
+    fn str_serialize(&self) -> String;
 }
 pub trait JSONSerialize {
     fn json_serialize(&self) -> String;
@@ -104,22 +104,6 @@ pub trait Stream: Read + Write {
     fn write_string(&mut self, string: String) -> IoResult<()>  {
         self.write_all(string.as_bytes())?;
         Ok(())
-    }
-    fn write_byte_serialize<T: ByteSerialize>(&mut self, obj: T) -> IoResult<()> {
-        let vec = obj.byte_serialize();
-        for byte in vec {
-            self.write_all(&[byte])?;
-        }
-        Ok(())
-    }
-    fn write_serialize<T: Serialize>(&mut self, obj: T) -> IoResult<()> {
-        self.write_string(obj.serialize())
-    }
-    fn write_json<T: JSONSerialize>(&mut self, obj: T) -> IoResult<()> {
-        self.write_string(obj.json_serialize())
-    }
-    fn write_xml<T: XMLSerialize>(&mut self, obj: T) -> IoResult<()> {
-        self.write_string(obj.xml_serialize())
     }
 }
 
